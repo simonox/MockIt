@@ -30,7 +30,7 @@ from within your code.
 
 # Full Documentation
 
-See the Wiki for full documentation, examples, guide lines and other information.
+See the [Wiki](https://github.com/pheymann/MockIt/wiki) for full documentation, examples, guide lines and other information.
 
 
 # Project Structure
@@ -41,6 +41,7 @@ The structure of this project is follows:
  - mockit-daemon: stand alone application running the **MockIt Agent**
  - mockit-tool: command line tool to manage the daemons
  - demos: a collection of demo projects
+ - images: images for the [Wiki](https://github.com/pheymann/MockIt/wiki)
 
 
 # Binaries
@@ -111,6 +112,8 @@ def main(args: Array[String]): Unit = {
 The server will run in the current process as a thread and stops when
 the parent process stops.
 
+For more examples take a look [here](https://github.com/pheymann/MockIt/wiki/How-To-Use)
+
 
 # Build
 
@@ -155,7 +158,7 @@ principles in mind:
  - do not push faulty code into the repository,
  - no IDE files in the repository.
 
-For further information have a look into the extended guide.
+For further information have a look into the [extended guide](https://github.com/pheymann/MockIt/wiki/How-To-Contribute).
 
 
 # Licence

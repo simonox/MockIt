@@ -46,7 +46,7 @@ The structure of this project is follows:
 
 # Binaries
 
-## Maven (in review process: right noew not available)
+## Maven (in review process: right now not available)
 
 To integrate MockIt into your Maven project just add it as dependency to
 your POM:

@@ -45,7 +45,7 @@ The structure of this project is follows:
 
 # Binaries
 
-## Maven
+## Maven (in review process: right noew not available)
 
 To integrate MockIt into your Maven project just add it as dependency to
 your POM:
@@ -58,6 +58,58 @@ your POM:
 ```
 
 Replace the x.y.z with the correct version number you want to use.
+
+## Small Example: Hello World
+
+This example shows how to create a small HTTP server:
+
+```Scala
+class HttpUnit extends HttpServerMockUnit {
+
+    override def init: Unit = {
+        // add a request-response pair
+        add(
+            HttpRequest(Get, "/webapp/test"),
+            HttpResponse(OK)                        +
+                ("this is a key", "and the value")  ++
+                ("text/plain", "hello world".getBytes("UTF-8"))
+        )
+    }
+
+}
+```
+
+This is the Mock Unit which implements the servers behaviour. In this
+example the server just sends the response **hello world** when a call 
+on `localhost:8080/webapp/test` appears.
+
+To run the server just call:
+
+```Scala
+def main(args: Array[String]): Unit = {
+    val unit = classOf[HttpUnit]
+
+    // configure the server
+    val container = new MockUnitContainer(
+        unit.getCanonicalName,
+        unit,
+        new ServerConfiguration(
+            8080,
+            1,
+            ConnectionType.http
+        )
+    )
+
+    val shutdown = new ShutdownLatch
+    val latch = new ShutdownLatch
+
+    // run the mock in the local process
+    MockIt.mockLocal(container :: Nil, shutdown, latch).call
+}
+```
+
+The server will run in the current process as a thread and stops when
+the parent process stops.
 
 
 # Build

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.mockit</groupId>
+    <artifactId>java-tcp-server-client</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <name>java-tcp-server-client</name>
+    <description>
+        This is a demo project to test the Java MockIt implementation for TCP server and clients.
+    </description>
+
+    <developers>
+        <developer>
+            <id>pheymann</id>
+            <name>Paul Heymann</name>
+            <email>ph.privatac@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>http://github.com/pheymann/MockIt/demos/java/tcp-server-client</url>
+        <developerConnection>scm:git:http://github.com/pheymann/MockIt/demos/java/tcp-server-client</developerConnection>
+        <connection>scm:git:http://github.com/pheymann/MockIt/demos/java/tcp-server-client</connection>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <java.version>1.8</java.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockit</groupId>
+            <artifactId>mockit</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

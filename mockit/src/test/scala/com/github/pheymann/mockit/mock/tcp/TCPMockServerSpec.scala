@@ -12,9 +12,9 @@ import com.github.pheymann.mockit.util.testmock.TestTCPMock
  * @author  pheymann
  * @version 0.1.0
  */
-object TCPMockServerTest {
+object TCPMockServerSpec {
 
-    import TCPMockWorkerTest._
+    import TCPMockWorkerSpec._
 
     def runTest: Boolean = {
         MockFactory.waitUntilOnline(DEFAULT_IP, DEFAULT_PORT)
@@ -54,7 +54,7 @@ object TCPMockServerTest {
  * @author  pheymann
  * @version 0.1.0
  */
-class TCPMockServerTest extends MockItSpec {
+class TCPMockServerSpec extends MockItSpec {
 
     "A TCPMockServer" should "process requests sent via a TCP connection" in {
         val config = new ServerConfiguration(
@@ -73,7 +73,7 @@ class TCPMockServerTest extends MockItSpec {
         val logs = pool.submit(server)
 
         serverShutdown.close
-        TCPMockServerTest.runTest should be (false)
+        TCPMockServerSpec.runTest should be (false)
 
         val channel = logs.get
 

@@ -46,6 +46,12 @@ The structure of this project is follows:
 
 # Binaries
 
+## Releases
+
+If you want to have the Jar-files directly just download them from the
+the release [page](https://github.com/pheymann/MockIt/releases). There your get
+the core library, the command line tool and the daemon application.
+
 ## Maven (in review process: right now not available)
 
 To integrate MockIt into your Maven project just add it as dependency to

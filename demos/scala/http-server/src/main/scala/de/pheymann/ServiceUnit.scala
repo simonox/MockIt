@@ -1,8 +1,8 @@
 package de.pheymann
 
-import org.mockit.annotation.{MockItConfigs, MockItConfig, MockIt}
-import org.mockit.core.{ConnectionType, ServerConfiguration}
-import org.mockit.mock.http._
+import com.github.pheymann.mockit.annotation.{MockItConfigs, MockItConfig, MockIt}
+import com.github.pheymann.mockit.core.{ConnectionType, ServerConfiguration}
+import com.github.pheymann.mockit.mock.http._
 
 @MockIt(mockKeys = Array("test-key"))
 @MockItConfigs

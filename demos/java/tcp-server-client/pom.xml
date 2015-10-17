@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.mockit</groupId>
-    <artifactId>java-tcp-server-client</artifactId>
+    <groupId>com.github.pheymann</groupId>
+    <artifactId>tcp-server-client</artifactId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
 
@@ -57,8 +57,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mockit</groupId>
-            <artifactId>mockit</artifactId>
+            <groupId>com.github.pheymann</groupId>
+            <artifactId>mockit_2.11</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pheymann</groupId>
+            <artifactId>mockitjavaapi</artifactId>
             <version>0.1.0</version>
         </dependency>
     </dependencies>

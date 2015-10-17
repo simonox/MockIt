@@ -1,7 +1,7 @@
 package de.pheymann
 
-import org.mockit.MockIt
-import org.mockit.core.ShutdownLatch
+import com.github.pheymann.mockit.MockIt
+import com.github.pheymann.mockit.core.ShutdownLatch
 
 object App {
 

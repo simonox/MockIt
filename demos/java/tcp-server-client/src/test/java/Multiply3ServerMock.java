@@ -1,4 +1,4 @@
-import org.mockit.annotation.MockIt;
+import com.github.pheymann.mockit.annotation.MockIt;
 
 @MockIt(mockKeys = {"test"})
 public class Multiply3ServerMock extends MultiplyServerMock {

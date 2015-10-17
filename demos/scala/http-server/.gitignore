@@ -43,9 +43,11 @@ local.properties
 target/
 
 ### IntelliJ
-.idea
-*.iml
+.idea/
+*iml
+project/project/
+project/target/
 
-### MockIt
+### tool
+*.reg
 *.log
-

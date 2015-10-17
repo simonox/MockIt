@@ -1,7 +1,7 @@
 import java.io.{ByteArrayOutputStream, InputStream, ObjectInputStream, ObjectOutputStream}
 
-import org.mockit.core.{FaultLevel, NoFault}
-import org.mockit.mock.tcp.TCPMockUnit
+import com.github.pheymann.mockit.core.{FaultLevel, NoFault}
+import com.github.pheymann.mockit.mock.tcp.TCPMockUnit
 
 abstract class MultiplyServerMock extends TCPMockUnit {
 

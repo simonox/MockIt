@@ -1,10 +1,10 @@
 import java.io.*;
 
-import org.mockit.General;
-import org.mockit.core.JMockResult;
-import org.mockit.mock.tcp.TCPMockUnitConvert;
+import com.github.pheymann.mockitjavaapi.General;
+import com.github.pheymann.mockitjavaapi.core.JMockResult;
+import com.github.pheymann.mockitjavaapi.mock.tcp.JTCPMockUnit;
 
-public abstract class MultiplyServerMock extends TCPMockUnitConvert {
+public abstract class MultiplyServerMock extends JTCPMockUnit {
 
     private static final int maxCalculations    = 2;
 
@@ -34,15 +34,23 @@ public abstract class MultiplyServerMock extends TCPMockUnitConvert {
     }
 
     @Override
-    public JMockResult jMock() throws Exception {
-        final ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-        final ObjectOutputStream objOut = new ObjectOutputStream(bOut);
+    public JMockResult jMock() {
+        JMockResult result = null;
 
-        objOut.writeInt(receivedData * multiplyFactor());
-        objOut.flush();
+        try {
+            final ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+            final ObjectOutputStream objOut = new ObjectOutputStream(bOut);
 
-        ++calculationCount;
-        return new JMockResult(bOut.toByteArray(), General.JFaultLevel.noFault, null);
+            objOut.writeInt(receivedData * multiplyFactor());
+            objOut.flush();
+
+            ++calculationCount;
+            result = new JMockResult(bOut.toByteArray(), General.JFaultLevel.noFault, null);
+        }
+        catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

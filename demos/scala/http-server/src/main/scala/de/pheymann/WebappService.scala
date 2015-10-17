@@ -2,7 +2,7 @@ package de.pheymann
 
 import java.io.File
 
-import org.mockit.mock.http._
+import com.github.pheymann.mockit.mock.http._
 
 case class WebappService(
                             unit: HttpServerMockUnit

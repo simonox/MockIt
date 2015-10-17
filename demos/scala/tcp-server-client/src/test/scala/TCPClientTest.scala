@@ -1,14 +1,15 @@
 import java.util.concurrent.{TimeUnit, Executors}
+
+import org.scalatest.{BeforeAndAfter, FlatSpec}
+
 import scala.collection.mutable.ListBuffer
 
-import org.junit.{After, Test, Before}
-
-import org.mockit.MockIt
-import org.mockit.annotation.{MockItConfig, MockItConfigs}
-import org.mockit.core.{ShutdownLatch, ClientConfiguration, ConnectionType}
+import com.github.pheymann.mockit.MockIt
+import com.github.pheymann.mockit.annotation.{MockItConfig, MockItConfigs}
+import com.github.pheymann.mockit.core.{ShutdownLatch, ClientConfiguration, ConnectionType}
 
 @MockItConfigs
-class TCPClientTest {
+class TCPClientTest extends FlatSpec with BeforeAndAfter {
 
     val pool = Executors.newSingleThreadExecutor
 
@@ -27,24 +28,24 @@ class TCPClientTest {
         mockConnection  = ConnectionType.tcp
     )
 
-    @Before def init: Unit = {
+    before {
         server = ServerActionWorker.init(5)
     }
 
-    @After def delete {
-        pool.shutdown
+    after {
+        pool.shutdown()
         pool.awaitTermination(1, TimeUnit.MINUTES)
     }
 
-    @Test def testTCPClient: Unit = {
+    "A TCPFactorClient" should "send numbers (factor) to a server" in {
         val serverIps   = new ListBuffer[(String, String, Int)]
         val shutdown    = new ShutdownLatch
         val latch       = new ShutdownLatch
 
         pool.submit(MockIt.mockNetwork("test2", "", serverIps, shutdown, latch))
 
-        latch.await
-        server.join
+        latch.await()
+        server.join()
         shutdown.close
     }
 

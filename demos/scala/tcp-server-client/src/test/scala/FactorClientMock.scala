@@ -1,7 +1,7 @@
 import java.io.{ObjectOutputStream, ByteArrayOutputStream, ObjectInputStream, InputStream}
 
-import org.mockit.core.{NoFault, FaultLevel}
-import org.mockit.mock.tcp.TCPMockUnit
+import com.github.pheymann.mockit.core.{NoFault, FaultLevel}
+import com.github.pheymann.mockit.mock.tcp.TCPMockUnit
 
 abstract class FactorClientMock extends TCPMockUnit {
 

@@ -2,16 +2,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.github.pheymann.mockitjavaapi.core.ConfigurationFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.mockit.General;
-import org.mockit.JMockIt;
-import org.mockit.core.JClientConfiguration;
-import org.mockit.core.ShutdownLatch;
-import org.mockit.annotation.MockItConfig;
-import org.mockit.annotation.MockItConfigs;
+import com.github.pheymann.mockit.core.Configuration;
+import com.github.pheymann.mockitjavaapi.General;
+import com.github.pheymann.mockitjavaapi.JMockIt;
+import com.github.pheymann.mockit.core.ShutdownLatch;
+import com.github.pheymann.mockit.annotation.MockItConfig;
+import com.github.pheymann.mockit.annotation.MockItConfigs;
 
 @MockItConfigs
 public class TCPClientTest {
@@ -21,7 +22,7 @@ public class TCPClientTest {
     Thread                  server = null;
 
     @MockItConfig(mockKey = "test2", mockUnit = "Factor2ClientMock")
-    JClientConfiguration testConfig = new JClientConfiguration(
+    final Configuration testConfig = ConfigurationFactory.createClient(
         2,
         2,
         ServerActionWorker.SERVER_PORT,
@@ -30,7 +31,7 @@ public class TCPClientTest {
         General.JConnectionType.tcp
     );
     @MockItConfig(mockKey = "test2", mockUnit = "Factor3ClientMock")
-    JClientConfiguration testConfig2 = new JClientConfiguration(
+    final Configuration testConfig2 = ConfigurationFactory.createClient(
         1,
         1,
         ServerActionWorker.SERVER_PORT,

@@ -45,3 +45,9 @@ target/
 ### IntelliJ
 .idea/
 *iml
+project/project/
+project/target/
+
+### tool
+*.reg
+*.log

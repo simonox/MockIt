@@ -3,18 +3,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.github.pheymann.mockit.core.Configuration;
+import com.github.pheymann.mockitjavaapi.core.ConfigurationFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.mockit.General;
-import org.mockit.JMockIt;
-import org.mockit.core.JMockCallable;
-import org.mockit.core.JServerConfiguration;
-import org.mockit.core.ShutdownLatch;
-import org.mockit.annotation.MockItConfig;
-import org.mockit.annotation.MockItConfigs;
+import com.github.pheymann.mockitjavaapi.General;
+import com.github.pheymann.mockitjavaapi.JMockIt;
+import com.github.pheymann.mockitjavaapi.core.JMockCallable;
+import com.github.pheymann.mockit.core.ShutdownLatch;
+import com.github.pheymann.mockit.annotation.MockItConfig;
+import com.github.pheymann.mockit.annotation.MockItConfigs;
 
 @MockItConfigs
 public class TCPServerTest {
@@ -29,13 +30,13 @@ public class TCPServerTest {
     private ShutdownLatch           shutdown    = new ShutdownLatch();
 
     @MockItConfig(mockKey = "test", mockUnit = "Multiply2ServerMock")
-    private final JServerConfiguration testConfig = new JServerConfiguration(
+    private final Configuration testConfig = ConfigurationFactory.createServer(
         PORT,
         1,
         General.JConnectionType.tcp
     );
     @MockItConfig(mockKey = "test", mockUnit = "Multiply3ServerMock")
-    private final JServerConfiguration testConfig2 = new JServerConfiguration(
+    private final Configuration testConfig2 =ConfigurationFactory.createServer(
         PORT + 1,
         1,
         General.JConnectionType.tcp

@@ -1,16 +1,15 @@
 import java.util.concurrent.{Executors, TimeUnit}
 
-import org.junit.Assert._
-import org.junit.{After, Before, Test}
-
-import org.mockit.MockIt
-import org.mockit.annotation.{MockItConfig, MockItConfigs}
-import org.mockit.core.{ConnectionType, ServerConfiguration, ShutdownLatch}
+import org.scalatest.{Matchers, FlatSpec, BeforeAndAfter}
 
 import scala.collection.mutable.ListBuffer
 
+import com.github.pheymann.mockit.MockIt
+import com.github.pheymann.mockit.core.{ConnectionType, ServerConfiguration, ShutdownLatch}
+import com.github.pheymann.mockit.annotation.{MockItConfig, MockItConfigs}
+
 @MockItConfigs
-class TCPServerTest {
+class TCPServerTest extends FlatSpec with BeforeAndAfter with Matchers {
 
     final val PORT  = 1234
 
@@ -32,24 +31,24 @@ class TCPServerTest {
         ConnectionType.tcp
     )
 
-    @Before def init: Unit = {
+    before {
         val latch = new ShutdownLatch
 
         shutdown = new ShutdownLatch
 
         pool.submit(MockIt.mockNetwork("test", "", serverIps, shutdown,latch))
-        latch.await
+        latch.await()
     }
 
-    @After def delete: Unit = {
-        serverIps.clear
+    after {
+        serverIps.clear()
 
         shutdown.close
-        pool.shutdown
+        pool.shutdown()
         pool.awaitTermination(1, TimeUnit.MINUTES)
     }
 
-    @Test def testTCPServer: Unit = {
+    "A MultiplyServer" should "multiply a number provided by a client" in {
         val x = 4
         val y = 5
 
@@ -63,8 +62,8 @@ class TCPServerTest {
             else
                 factor = 3
 
-            assertEquals(x * factor + y * factor, client.action(x, y))
-            assertEquals(x * factor + y * factor, client.action(x, y))
+            (x * factor + y * factor) should be (client.action(x, y))
+            (x * factor + y * factor) should be (client.action(x, y))
         }
     }
 

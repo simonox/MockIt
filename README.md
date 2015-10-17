@@ -58,7 +58,7 @@ To integrate MockIt into your Maven project just add it as dependency to
 your POM:
 ```
 <dependency>
-    <groupId>org.mockit</groupId>
+    <groupId>com.github.pheymann</groupId>
     <artifactId>mockit</artifactId>
     <version>x.y.z</version>
 </dependency>
@@ -132,6 +132,13 @@ and for the core library run:
 
 ```
 $ cd MockIt/mockit
+$ sbt package
+```
+
+for the Java API:
+
+```
+$ cd MockIt/mockit-java-api
 $ mvn clean package
 ```
 
@@ -139,14 +146,14 @@ for the daemon application:
 
 ```
 $ cd MockIt/mockit-daemon
-$ mvn clean package
+$ sbt assembly
 ```
 
 and for the command line tool:
 
 ```
 $ cd MockIt/mockit-tool
-$ mvn clean package
+$ sbt assembly
 ```
 
 # Development Guide

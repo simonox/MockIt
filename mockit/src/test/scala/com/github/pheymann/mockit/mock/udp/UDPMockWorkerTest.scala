@@ -7,6 +7,7 @@ import com.github.pheymann.mockit.MockItSpec
 import com.github.pheymann.mockit.core.core._
 import com.github.pheymann.mockit.core._
 import com.github.pheymann.mockit.logging.Logger
+import com.github.pheymann.mockit.util.testmock.TestUDPMock
 
 /**
  * Test udp server which stores the expected clients request
@@ -94,7 +95,7 @@ object UDPMockWorkerTest {
                    level:       FaultLevel,
                    logSize:     Int = 0,
                    responseNum: Int = 1
-               ): Unit = {
+               ): Boolean = {
 
         val server = new UDPTestServer(testResponse, level, responseNum)
 
@@ -105,21 +106,26 @@ object UDPMockWorkerTest {
 
         val worker = Executors.newFixedThreadPool(2)
         val log = worker.submit(new UDPMockWorker(config, mock))
-        val failure = worker.submit(server)
+        val serverFailure = worker.submit(server)
 
         val channel = log.get(10, TimeUnit.SECONDS)
 
+        var failure = false
+
         if (channel.size > 0)
             channel.print()
-        //assertFalse(channel.size > 0)
+
+        failure ||= (channel.size > 0)
         level match {
-            case fault @ (_: NoFault | _: MultipleResponses) => //assertFalse(failure.get(10, TimeUnit.SECONDS))
-            case _ => //assertTrue(failure.get(10, TimeUnit.SECONDS))
+            case fault @ (_: NoFault | _: MultipleResponses) => failure ||= serverFailure.get(10, TimeUnit.SECONDS)
+            case _ => failure ||= !serverFailure.get(10, TimeUnit.SECONDS)
         }
-        //assertEquals(logSize, channel.size)
+        failure ||= (logSize == channel.size)
 
         worker.shutdown()
         worker.awaitTermination(1, TimeUnit.MINUTES)
+
+        failure
     }
 
 }
@@ -130,12 +136,8 @@ object UDPMockWorkerTest {
  */
 class UDPMockWorkerTest extends MockItSpec {
 
-    import UDPMockWorkerTest._
-
-    /*
-    @Test def testWorkerNonFaulty(): Unit = {
-        -- ("testWorkerNonFaulty")
-        runTest(new TestUDPMock, NoFault())
-    }*/
+    "A UDPMockWorker" should "run a MockUnit without a fault simulation" in {
+        UDPMockWorkerTest.runTest(new TestUDPMock, NoFault())
+    }
 
 }

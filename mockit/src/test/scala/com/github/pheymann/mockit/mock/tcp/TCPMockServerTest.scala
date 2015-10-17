@@ -1,10 +1,12 @@
 package com.github.pheymann.mockit.mock.tcp
 
 import java.net.Socket
+import java.util.concurrent.{TimeUnit, Executors}
 
 import com.github.pheymann.mockit.MockItSpec
 import com.github.pheymann.mockit.core.core._
 import com.github.pheymann.mockit.core._
+import com.github.pheymann.mockit.util.testmock.TestTCPMock
 
 /**
  * @author  pheymann
@@ -54,10 +56,7 @@ object TCPMockServerTest {
  */
 class TCPMockServerTest extends MockItSpec {
 
-    /*
-    @Test def testMock(): Unit = {
-        -- ("testMock")
-
+    "A TCPMockServer" should "process requests sent via a TCP connection" in {
         val config = new ServerConfiguration(
             DEFAULT_PORT,
             1,
@@ -74,16 +73,15 @@ class TCPMockServerTest extends MockItSpec {
         val logs = pool.submit(server)
 
         serverShutdown.close
-        assertFalse(TCPMockServerTest.runTest)
+        TCPMockServerTest.runTest should be (false)
 
         val channel = logs.get
 
-        assertEquals(0, channel.size)
+        channel.size should be (0)
 
         shutdown.close
         pool.shutdown()
         pool.awaitTermination(1, TimeUnit.MINUTES)
     }
-    */
 
 }

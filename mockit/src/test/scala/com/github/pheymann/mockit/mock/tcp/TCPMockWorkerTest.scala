@@ -6,8 +6,8 @@ import java.util.concurrent.{Callable, Executors, TimeUnit}
 import com.github.pheymann.mockit.MockItSpec
 import com.github.pheymann.mockit.core.core._
 import com.github.pheymann.mockit.core.BasicMockType
-import com.github.pheymann._
 import com.github.pheymann.mockit.core._
+import com.github.pheymann.mockit.util.testmock.{TestTCPMock, TestTCPMockFixedDelay, TestTCPMockLooseConnection, TestTCPMockMultipleResponses}
 
 /**
  * Test tcp server which stores the expected client request
@@ -49,8 +49,7 @@ class TCPTestServer(
         catch {
             case e: Exception =>
                 faultLevel match {
-                    case fault @ (_: NoFault | _: MultipleResponses) =>
-                        //fail(e.getMessage)
+                    case fault @ (_: NoFault | _: MultipleResponses) => e.printStackTrace()
                     case _ => /* do nothing */
                 }
                 failure = true
@@ -92,33 +91,37 @@ object TCPMockWorkerTest {
     val testMessage = Array[Byte](1, 2, 3, 4)
 
     def runTest(
-                   mock: TCPMockUnit,
-                   level: FaultLevel,
-                   logSize: Int = 0,
+                   mock:        TCPMockUnit,
+                   level:       FaultLevel,
+                   logSize:     Int = 0,
                    responseNum: Int = 1
-               ): Unit = {
+               ): Boolean = {
 
         val server = new TCPTestServer(testMessage, level, responseNum)
 
         val worker = Executors.newFixedThreadPool(2)
-        val failure = worker.submit(server)
+        val serverFailure = worker.submit(server)
 
         val client = new Socket(DEFAULT_IP, DEFAULT_PORT)
         val log = worker.submit(new TCPMockWorker(client, mock, BasicMockType.client))
         val channel = log.get(10, TimeUnit.SECONDS)
 
+        var failure = false
+
         if (channel.size > 0)
             channel.print()
-        //assertFalse(channel.size > 0)
+        failure ||= (channel.size > 0)
         level match {
-            case fault @ (_: NoFault | _: MultipleResponses) => //assertFalse(failure.get(10, TimeUnit.SECONDS))
-            case _ => //assertTrue(failure.get(10, TimeUnit.SECONDS))
+            case fault @ (_: NoFault | _: MultipleResponses) => failure ||= serverFailure.get(10, TimeUnit.SECONDS)
+            case _ => failure ||= !serverFailure.get(10, TimeUnit.SECONDS)
         }
-        //assertEquals(logSize, channel.size)
+        failure ||= !(logSize == channel.size)
 
         client.close()
         worker.shutdown()
         worker.awaitTermination(1, TimeUnit.MINUTES)
+
+        failure
     }
 
 }
@@ -131,25 +134,20 @@ class TCPMockWorkerTest extends MockItSpec {
 
     import TCPMockWorkerTest._
 
-    /*
-    @Test def testWorkerNonFaulty(): Unit = {
-        -- ("testWorkerNonFaulty")
-        runTest(new TestTCPMock, NoFault())
+    "A TCPMockWorker" should "run a MockUnit without a fault simulation" in {
+        TCPMockWorkerTest.runTest(new TestTCPMock, NoFault()) should be (false)
     }
 
-    @Test def testWorkerFaultyDelay(): Unit = {
-        -- ("testWorkerFaultyDelay")
-        runTest(new TestTCPMockFixedDelay, FixedDelay(delay))
+    it should "run a MockUnit with delay simulation" in {
+        TCPMockWorkerTest.runTest(new TestTCPMockFixedDelay, FixedDelay(delay)) should be (false)
     }
 
-    @Test def testWorkerFaultyLooseConnection(): Unit = {
-        -- ("testWorkerFaultyLooseConnection")
-        runTest(new TestTCPMockLooseConnection, LooseConnection())
+    it should "run a MockUnit with connection loss simulation" in {
+        TCPMockWorkerTest.runTest(new TestTCPMockLooseConnection, LooseConnection()) should be (false)
     }
 
-    @Test def testWorkerFaultyMultipleResponses(): Unit = {
-        -- ("testWorkerFaultyMultipleResponses")
-        runTest(new TestTCPMockMultipleResponses, MultipleResponses(factor), responseNum = factor)
+    it should "run a MockUnit with response multiplication simulation" in {
+        TCPMockWorkerTest.runTest(new TestTCPMockMultipleResponses, MultipleResponses(factor), responseNum = factor) should be (false)
     }
-    */
+
 }

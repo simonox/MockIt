@@ -22,7 +22,7 @@ val scalaDependencies = Seq (
     "org.scala-lang" % "scala-reflect" % "2.11.7",
     "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.4",
 
-    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.1.0"
+    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.1.0-beta"
 )
 
 resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"

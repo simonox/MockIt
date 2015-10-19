@@ -44,10 +44,9 @@ compileOrder := CompileOrder.JavaThenScala
 
 parallelExecution in Test := false
 
-releaseUseGlobalVersion := false
-
 publishMavenStyle := true
 publishArtifact in Test := false
+
 publishTo <<= (version) { v =>
     val nexus = "https://oss.sonatype.org/"
     if (v.endsWith("-SNAPSHOT"))
@@ -55,6 +54,9 @@ publishTo <<= (version) { v =>
     else
         Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
+
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
+releaseUseGlobalVersion := false
 
 artifactName := {
     (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
@@ -67,25 +69,27 @@ pgpReadOnly := false
 sonatypeProfileName := "pheymann"
 
 pomExtra in Global := {
-        <licenses>
-            <license>
-                <name>MIT License</name>
-                <url>https://opensource.org/licenses/MIT</url>
-                <distribution>repo</distribution>
-            </license>
-        </licenses>
+    <url>https://github.com/pheymann/MockIt</url>
 
-        <scm>
-            <url>https://github.com/pheymann/MockIt</url>
-            <developerConnection>scm:git:git://github.com/pheymann/MockIt.git</developerConnection>
-            <connection>scm:git:git@github.com:pheymann/MockIt.git</connection>
-        </scm>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-        <developers>
-            <developer>
-                <id>pheymann</id>
-                <name>Paul Heymann</name>
-                <email>ph.privatac@gmail.com</email>
-            </developer>
-        </developers>
+    <scm>
+        <url>https://github.com/pheymann/MockIt</url>
+        <developerConnection>scm:git:git://github.com/pheymann/MockIt.git</developerConnection>
+        <connection>scm:git:git@github.com:pheymann/MockIt.git</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>pheymann</id>
+            <name>Paul Heymann</name>
+            <email>ph.privatac@gmail.com</email>
+        </developer>
+    </developers>
 }

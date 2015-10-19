@@ -48,6 +48,13 @@ releaseUseGlobalVersion := false
 
 publishMavenStyle := true
 publishArtifact in Test := false
+publishTo <<= (version) { v =>
+    val nexus = "https://oss.sonatype.org/"
+    if (v.endsWith("-SNAPSHOT"))
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
 
 artifactName := {
     (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>

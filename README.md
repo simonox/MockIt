@@ -52,7 +52,7 @@ If you want to have the Jar-files directly just download them from the
 the release [page](https://github.com/pheymann/MockIt/releases). There your get
 the core library, the command line tool and the daemon application.
 
-## SBT (in review process: right now not available)
+## SBT
 
 To integrate MockIt into your SBT project just add it as dependency to
 your build file:
@@ -63,9 +63,9 @@ lazy val scalaVersion = "2.11"
 "com.github.pheymann" % s"mockit_$scalaVersion" % "x.y.z"
 ```
 
-Replace the x.y.z with the correct version number you want to use.
+Replace the x.y.z with the correct version number you want to use (*current: 0.1.0-beta*).
 
-## Maven (in review process: right now not available)
+## Maven
 
 To integrate MockIt into your Maven project just add it as dependency to
 your POM:
@@ -87,7 +87,7 @@ If you programming in Java you will need the Java API too:
     <version>x.y.z</version>
 </dependency>
 ```
-Replace the x.y.z with the correct version number you want to use.
+Replace the x.y.z with the correct version number you want to use (*current: 0.1.0-beta*).
 
 ## Small Example: Hello World
 

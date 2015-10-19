@@ -8,7 +8,8 @@ lazy val root = (project in file(".")).
         startYear := Some(2015),
 
         description :=
-            """--""".stripMargin
+            """The MockIt Tool is a small command line application which can
+              |start and stop MockIt Daemons on the local machine.""".stripMargin
     )
 
 lazy val scalaBasicVersion = "2.11"
@@ -19,7 +20,7 @@ val scalaDependencies = Seq (
     "org.scala-lang" % "scala-reflect" % "2.11.7",
     "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.4",
 
-    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.1.0"
+    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.1.0-beta"
 )
 
 val javaDependencies = Seq (

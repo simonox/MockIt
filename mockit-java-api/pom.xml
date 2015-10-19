@@ -8,9 +8,10 @@
     <groupId>com.github.pheymann</groupId>
     <artifactId>mockitjavaapi</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.0</version>
+    <version>0.1.0-beta</version>
 
     <name>Mockit-Java-API</name>
+    <url>https://github.com/pheymann/MockIt</url>
     <description>
         MockIt-Java-API is the Java interface for MockIt.
 
@@ -28,9 +29,9 @@
     </developers>
 
     <scm>
-        <url>http://github.com/pheymann/MockIt</url>
-        <developerConnection>scm:git:http://github.com/pheymann/MockIt.git</developerConnection>
-        <connection>scm:git:http://github.com/pheymann/MockIt.git</connection>
+        <url>https://github.com/pheymann/MockIt</url>
+        <developerConnection>scm:git:git://github.com/pheymann/MockIt.git</developerConnection>
+        <connection>scm:git:git@github.com/pheymann/MockIt.git</connection>
     </scm>
 
     <licenses>
@@ -55,6 +56,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <build>
@@ -110,7 +115,6 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
@@ -146,7 +150,7 @@
         <dependency>
             <groupId>com.github.pheymann</groupId>
             <artifactId>mockit_2.11</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.0-beta</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

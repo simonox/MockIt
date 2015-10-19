@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
     settings(
         organization := "com.github.pheymann",
         name := "mockit",
-        version := "0.1.0",
+        version := "0.1.0-BETA",
         scalaVersion := "2.11.7",
 
         startYear := Some(2015),
@@ -42,6 +42,10 @@ javacOptions ++= Seq("-source", javaVersion)
 
 compileOrder := CompileOrder.JavaThenScala
 
+parallelExecution in Test := false
+
+releaseUseGlobalVersion := false
+
 publishMavenStyle := true
 publishArtifact in Test := false
 
@@ -51,6 +55,7 @@ artifactName := {
 }
 
 isSnapshot := true
+pgpReadOnly := false
 
 sonatypeProfileName := "pheymann"
 
@@ -64,9 +69,9 @@ pomExtra in Global := {
         </licenses>
 
         <scm>
-            <url>http://github.com/pheymann/MockIt</url>
-            <developerConnection>scm:git:http://github.com/pheymann/MockIt</developerConnection>
-            <connection>scm:git:http://github.com/pheymann/MockIt</connection>
+            <url>https://github.com/pheymann/MockIt</url>
+            <developerConnection>scm:git:git://github.com/pheymann/MockIt.git</developerConnection>
+            <connection>scm:git:git@github.com:pheymann/MockIt.git</connection>
         </scm>
 
         <developers>

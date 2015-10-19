@@ -92,6 +92,14 @@ Replace the x.y.z with the correct version number you want to use (*current: 0.1
 
 ## Small Example: Hello World
 
+If you want to run one or several mock-ups on different machines you have to
+start **MockIt Daemons** with the **MockIt Tool** on this machines 
+([description](https://github.com/pheymann/MockIt/wiki/How-To-Use#run-a-daemon)). The number of
+daemons has to be at least the number of mock-ups you want to run.
+
+Otherwise if you use the library und create your own stand alone mock-up 
+([example](https://github.com/pheymann/MockIt/wiki/How-To-Use#http-protocol)) daemons are not necessary at all.
+
 This example shows how to create a small HTTP server:
 
 ```Scala

@@ -38,6 +38,7 @@ See the [Wiki](https://github.com/pheymann/MockIt/wiki) for full documentation, 
 The structure of this project is follows:
 
  - mockit: sources and tests of the core library
+ - mockit-java-api: sources and tests of the Java interface
  - mockit-daemon: stand alone application running the **MockIt Agent**
  - mockit-tool: command line tool to manage the daemons
  - demos: a collection of demo projects

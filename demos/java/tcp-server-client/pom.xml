@@ -59,13 +59,13 @@
         <dependency>
             <groupId>com.github.pheymann</groupId>
             <artifactId>mockit_2.11</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.0-beta</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.pheymann</groupId>
             <artifactId>mockitjavaapi</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.0-beta</version>
         </dependency>
     </dependencies>
 

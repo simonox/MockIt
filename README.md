@@ -216,4 +216,3 @@ This project is licensed under the MIT Licence.
 This projects are integrated into MockIt:
 
  - [reflections](https://github.com/ronmamo/reflections)
- - [JUnit](http://junit.org/)

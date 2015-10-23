@@ -31,14 +31,14 @@ public class TCPServerTest {
 
     @MockItConfig(mockKey = "test", mockUnit = "Multiply2ServerMock")
     private final Configuration testConfig = ConfigurationFactory.createServer(
-        PORT,
         1,
+        PORT,
         General.JConnectionType.tcp
     );
     @MockItConfig(mockKey = "test", mockUnit = "Multiply3ServerMock")
     private final Configuration testConfig2 =ConfigurationFactory.createServer(
-        PORT + 1,
         1,
+        PORT + 1,
         General.JConnectionType.tcp
     );
 

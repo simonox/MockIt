@@ -1,5 +1,6 @@
 package com.github.pheymann.mockit.network
 
+import java.io.IOException
 import java.net.{Socket, DatagramPacket, MulticastSocket, InetAddress}
 
 import com.github.pheymann.mockit.logging.Logger
@@ -78,7 +79,7 @@ class ServerListener extends Logger {
 
             result = (config, mockClass)
         } catch {
-            case e: Throwable =>
+            case e: IOException =>
                 this > s"upload server [$address] is already down: " + {
                     var cause: Throwable = e.getCause
 
@@ -91,6 +92,9 @@ class ServerListener extends Logger {
                     msg.toString()
                 }
                 throw new UploadServerDownException
+            case e: Throwable =>
+                this error(s"try to load from [$address]", e)
+                throw e
         }
         result
     }

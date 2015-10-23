@@ -67,13 +67,16 @@ class NetworkClassLoader(
             result = defineClass(name, clazz, 0, clazz.length)
         }
         catch {
-            case e: LinkageError =>
-                this > s"class $name is already available"
-                result = this.loadClass(name)
-
-                if (result == null)
-                    throw e
-            case e: Throwable => throw e
+            case e: Throwable =>
+                try {
+                    this > s"if class $name is already available load it"
+                    result = this.loadClass(name)
+                }
+                catch {
+                    case e2: Throwable =>
+                        this error("cannot load class", e2)
+                        throw e
+                }
         }
         result
     }

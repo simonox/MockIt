@@ -33,6 +33,12 @@ from within your code.
 See the [Wiki](https://github.com/pheymann/MockIt/wiki) for full documentation, examples, guide lines and other information.
 
 
+# Contact
+
+There is a [Google Group](https://groups.google.com/forum/#!forum/comgithubpheymannmockit/new) where you can
+ask questions.
+
+
 # Project Structure
 
 The structure of this project is follows:

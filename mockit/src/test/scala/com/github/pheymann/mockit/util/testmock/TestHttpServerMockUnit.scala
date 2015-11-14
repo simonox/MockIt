@@ -36,19 +36,32 @@ class TestHttpServerMockUnit extends HttpServerMockUnit {
             ("text/html", (value * 2).toString.getBytes(DEFAULT_ENC))
     }
 
+    def error(request: HttpRequest): HttpResponse = {
+        HttpResponse(BadRequest) +
+            (headerKey, headerValue + 3) ++
+            ("text/plain", 3.toString.getBytes(DEFAULT_ENC))
+    }
+
     override def init(): Unit = {
         var request = HttpRequest(Get, "/test") +
             (headerKey, headerValue)
-        add(request, get _)
+        addWithFunction(request, get _)
 
         request = HttpRequest(Post, "/test") +
             (headerKey, headerValue)
-        add(request, post _)
+        addWithFunction(request, post _)
 
         request = HttpRequest(Put, "/test") +
             (headerKey, headerValue)
         val response = HttpResponse(OK)    +
             (headerKey, headerValue + 3)
-        add(request, response)
+        add(request, response, Option(error _))
     }
+
+    override def errorResponse(request: HttpRequest): HttpResponse = {
+        HttpResponse(BadRequest) +
+            (headerKey, headerValue + 3) ++
+            ("text/plain", 4.toString.getBytes(DEFAULT_ENC))
+    }
+
 }

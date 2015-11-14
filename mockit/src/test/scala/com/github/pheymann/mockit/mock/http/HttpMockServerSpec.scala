@@ -52,8 +52,7 @@ class HttpMockServerSpec extends MockItSpec {
                 case None       =>
             }
         }
-
-        logs.isEmpty should be (true)
+        logs.isEmpty should be(true)
     }
 
     "A HttpMockServer" should "receive HTTP request, process them and send HTTP responses to the clients" in {
@@ -69,7 +68,7 @@ class HttpMockServerSpec extends MockItSpec {
 
         var line = inStream.readLine
 
-        while (line != null && line != "") {
+        while (line != null && !line.isEmpty) {
             line = inStream.readLine
         }
     }
@@ -91,7 +90,7 @@ class HttpMockServerSpec extends MockItSpec {
 
         var line = inStream.readLine
 
-        while (line != null && line != "") {
+        while (line != null && !line.isEmpty) {
             line = inStream.readLine
         }
 
@@ -99,6 +98,60 @@ class HttpMockServerSpec extends MockItSpec {
         inStream.read(result, 0, 1)
 
         result.mkString.toInt should be (2)
+    }
+
+    it should "be able to send error responses if the received request doesn't meet the expectations" in {
+        val client = new Socket(InetAddress.getByName("localhost"), 8080)
+
+        val outStream = new DataOutputStream(client.getOutputStream)
+
+        outStream.writeBytes("PUT /test HTTP/1.1\r\n")
+        outStream.writeBytes("Content-Type: text/plain\r\n")
+        outStream.writeBytes("Content-Length: 1\r\n")
+        outStream.writeBytes("user: wrong-user\r\n")
+        outStream.writeBytes("\r\n")
+        outStream.writeBytes("1")
+        outStream.flush()
+
+        val inStream = new BufferedReader(new InputStreamReader(client.getInputStream))
+
+        var line = inStream.readLine
+
+        while (line != null && !line.isEmpty) {
+            line = inStream.readLine
+        }
+
+        val result = new Array[Char](1)
+        inStream.read(result, 0, 1)
+
+        result.mkString.toInt should be (3)
+    }
+
+    it should "be able to send a global error response if a receive request doesn't meet the expectations" in {
+        val client = new Socket(InetAddress.getByName("localhost"), 8080)
+
+        val outStream = new DataOutputStream(client.getOutputStream)
+
+        outStream.writeBytes("GET /testWrong HTTP/1.1\r\n")
+        outStream.writeBytes("Content-Type: text/plain\r\n")
+        outStream.writeBytes("Content-Length: 1\r\n")
+        outStream.writeBytes("user: test-user\r\n")
+        outStream.writeBytes("\r\n")
+        outStream.writeBytes("1")
+        outStream.flush()
+
+        val inStream = new BufferedReader(new InputStreamReader(client.getInputStream))
+
+        var line = inStream.readLine
+
+        while (line != null && !line.isEmpty) {
+            line = inStream.readLine
+        }
+
+        val result = new Array[Char](1)
+        inStream.read(result, 0, 1)
+
+        result.mkString.toInt should be (4)
     }
 
 }

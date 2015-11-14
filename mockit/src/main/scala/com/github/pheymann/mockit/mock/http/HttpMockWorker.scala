@@ -60,8 +60,8 @@ class HttpMockWorker (
                     outStream.writeBytes("\r\n")
 
                     resp.loadBody match {
-                        case Some(content)  => outStream.write(content)
-                        case None           =>
+                        case Some(content) => outStream.write(content)
+                        case None =>
                     }
                     outStream.flush()
                 case None =>
@@ -72,8 +72,23 @@ class HttpMockWorker (
                         outStream.write(Files.readAllBytes(Paths.get(mock.baseDir + request.resource)))
                         outStream.flush()
                     }
-                    else
-                        sendError (s"no response found for request: ${request.toString}")
+                    else {
+                        this >> s"no response found for request: ${request.toString} > send error response"
+
+                        val error = mock.errorResponse(request)
+
+                        outStream.writeBytes("HTTP/1.1 " + error.code.key + "\r\n")
+                        for ((key, value) <- error.header) {
+                            outStream.writeBytes(key + ": " + value + "\r\n")
+                        }
+                        outStream.writeBytes("\r\n")
+
+                        error.loadBody match {
+                            case Some(content) => outStream.write(content)
+                            case None =>
+                        }
+                        outStream.flush()
+                    }
             }
         }
         catch {

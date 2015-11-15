@@ -1,18 +1,19 @@
 package com.github.pheymann.mockit.logging
 
+import com.typesafe.scalalogging.LazyLogging
+
 /**
  * Pattern for local logging based on '''log4j'''.
  *
  * @author  pheymann
  * @version 0.1.0
  */
-trait Logger {
+trait Logger extends LazyLogging {
 
     val start   = "start"
     val stop    = "stop"
 
     lazy val name   = this.getClass.getSimpleName
-    lazy val logger = org.apache.log4j.Logger.getLogger(name)
 
 
     /**
@@ -22,8 +23,7 @@ trait Logger {
      *          info message transferred call-by-name
      */
     def >(msg: => String): Unit = {
-        if (logger.isInfoEnabled)
-            logger.info(msg)
+        logger.info(msg)
     }
 
     /**
@@ -33,8 +33,7 @@ trait Logger {
      *          trace message transferred call-by-name
      */
     def >>(msg: => String): Unit = {
-        if (logger.isTraceEnabled)
-            logger.trace(msg)
+        logger.trace(msg)
     }
 
     /**

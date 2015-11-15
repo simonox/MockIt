@@ -7,6 +7,10 @@ import com.github.pheymann.mockitjavaapi.General;
 import com.github.pheymann.mockitjavaapi.core.JMockResult;
 import com.github.pheymann.mockitjavaapi.mock.tcp.JTCPMockUnit;
 
+/**
+ * @author  pheymann
+ * @version 0.1.0
+ */
 @MockIt(mockKeys = {"test-key"})
 public class JTestTCPMock extends JTCPMockUnit {
 

@@ -6,6 +6,10 @@ import com.github.pheymann.mockit.mock.http.HttpRequest;
 import com.github.pheymann.mockit.mock.http.HttpResponse;
 import com.github.pheymann.mockitjavaapi.mock.http.JHTTPServerMockUnit;
 
+/**
+ * @author  pheymann
+ * @version 0.2.0
+ */
 public class JTestHttpServerMock extends JHTTPServerMockUnit {
 
     @Override

@@ -17,7 +17,7 @@ import com.github.pheymann.mockit.mock.http.HttpServerMockUnit;
  * @see com.github.pheymann.mockit.mock.http.HttpServerMockUnit
  *
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 public abstract class JHTTPServerMockUnit extends HttpServerMockUnit {
 

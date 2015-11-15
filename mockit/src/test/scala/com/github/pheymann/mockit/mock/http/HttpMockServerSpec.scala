@@ -13,6 +13,10 @@ import com.github.pheymann.mockit.networkclassloader.ClassConverter
 import com.github.pheymann.mockit.core.{MockUnitContainer, ServerConfiguration, ShutdownLatch}
 import com.github.pheymann.mockit.util.testmock.TestHttpServerMockUnit
 
+/**
+ * @author  pheymann
+ * @version 0.2.0
+ */
 class HttpMockServerSpec extends MockItSpec {
 
     import ClassConverter._

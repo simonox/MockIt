@@ -8,7 +8,7 @@ import ResourceHandler._
 
 /**
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 object HttpServerMockUnit {
 
@@ -47,7 +47,7 @@ object HttpServerMockUnit {
  * from which resource files can be loaded automatically on request.
  *
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 abstract class HttpServerMockUnit extends MockUnit {
 

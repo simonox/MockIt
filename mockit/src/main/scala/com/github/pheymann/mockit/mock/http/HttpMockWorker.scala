@@ -20,7 +20,7 @@ import com.github.pheymann.mockit.logging.{NetworkLogger, Logger, LogChannel}
  *              mock unit
  *
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 class HttpMockWorker (
                          val connection:         Socket,

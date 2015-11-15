@@ -8,12 +8,12 @@ import ResourceHandler._
 
 /**
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 object HttpServerMockUnit {
 
     def find(resource: String, command: HttpMethod)
-            (implicit unit: HttpServerMockUnit): Option[(HttpRequest, HttpRequest => HttpResponse)] = {
+            (implicit unit: HttpServerMockUnit): Option[ResourceContainer] = {
         val resHandlerOpt = unit.mock.get(resource)
 
         resHandlerOpt match {
@@ -27,11 +27,14 @@ object HttpServerMockUnit {
         val optional = find(request.resource, request.method)
 
         optional match {
-            case Some((requestOrig, response)) =>
-                if (requestOrig.equals(request))
-                    Option(response(request))
+            case Some(container) =>
+                if (container.request.equals(request))
+                    Option(container.response(request))
                 else
-                    None
+                    container.error match {
+                        case Some(error) => Option(error(request))
+                        case None => None
+                    }
             case None => None
         }
     }
@@ -44,7 +47,7 @@ object HttpServerMockUnit {
  * from which resource files can be loaded automatically on request.
  *
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 abstract class HttpServerMockUnit extends MockUnit {
 
@@ -52,24 +55,78 @@ abstract class HttpServerMockUnit extends MockUnit {
 
     protected val mock = new mutable.HashMap[String, ResourceHandler]
 
-    def add(request: HttpRequest, response: HttpResponse): Unit = {
+    /**
+     * Global error response if no request/response pair can be found.
+     *
+     * If no global error response is defined the connection to
+     * the client is closed.
+     *
+     * @param request
+     *              without corresponding response
+     * @return response
+     */
+    def errorResponse(request: HttpRequest): HttpResponse
+
+    /**
+     * Adds request/response pair to the mock server.
+     *
+     * If the received request meets the defined one the server transmits the
+     * stored response to the client. If it doesn't meet the server goes through
+     * the following stages:
+     *   - if an error is defined send the error response
+     *   - if an global error response is defined send this
+     *   - nothing is defined send nothing
+     *
+     * @param request
+     *              defined request
+     * @param response
+     *              standard response
+     * @param error
+     *              is send when the received request doesn't meet the defined one
+     */
+    def add(
+                request:    HttpRequest,
+                response:   HttpResponse,
+                error:      Option[HttpRequest => HttpResponse] = None
+           ): Unit = {
         mock.get(request.resource) match {
-            case Some(resource) => set(request.method, request -> response)(resource)
+            case Some(resource) => set(request.method, request -> response, error)(resource)
             case None =>
                 implicit val resHandler = new ResourceHandler
 
-                set(request.method, request -> response)
+                set(request.method, request -> response, error)
                 mock += request.resource -> resHandler
         }
     }
 
-    protected def add(request: HttpRequest, handler: HttpRequest => HttpResponse): Unit = {
+    /**
+     * Adds request/response-handler pair to the mock server.
+     *
+     * If the received request meets the defined one the server calls the response
+     * creation function and transmits the retrieved response to the client. If
+     * it doesn't meet the server goes through the following stages:
+     *   - if an error is defined send the error response
+     *   - if an global error response is defined send this
+     *   - nothing is defined send nothing
+     *
+     * @param request
+     *              defined request
+     * @param handler
+     *              function which creates responses depending on the request
+     * @param error
+     *              is send when the received request doesn't meet the defined one
+     */
+    def addWithFunction(
+                            request:    HttpRequest,
+                            handler:    HttpRequest => HttpResponse,
+                            error:      Option[HttpRequest => HttpResponse] = None
+                       ): Unit = {
         mock.get(request.resource) match {
-            case Some(resource) => setHandler(request.method, request -> handler)(resource)
+            case Some(resource) => setHandler(request.method, request -> handler, error)(resource)
             case None =>
                 implicit val resHandler = new ResourceHandler
 
-                setHandler(request.method, request -> handler)
+                setHandler(request.method, request -> handler, error)
                 mock += request.resource -> resHandler
         }
     }

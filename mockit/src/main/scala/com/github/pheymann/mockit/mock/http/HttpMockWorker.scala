@@ -20,7 +20,7 @@ import com.github.pheymann.mockit.logging.{NetworkLogger, Logger, LogChannel}
  *              mock unit
  *
  * @author  pheymann
- * @version 0.1.0
+ * @version 0.2.0
  */
 class HttpMockWorker (
                          val connection:         Socket,
@@ -60,8 +60,8 @@ class HttpMockWorker (
                     outStream.writeBytes("\r\n")
 
                     resp.loadBody match {
-                        case Some(content)  => outStream.write(content)
-                        case None           =>
+                        case Some(content) => outStream.write(content)
+                        case None =>
                     }
                     outStream.flush()
                 case None =>
@@ -72,8 +72,26 @@ class HttpMockWorker (
                         outStream.write(Files.readAllBytes(Paths.get(mock.baseDir + request.resource)))
                         outStream.flush()
                     }
-                    else
-                        sendError (s"no response found for request: ${request.toString}")
+                    else {
+                        this >> s"no response found for request: ${request.toString} > send error response"
+
+                        Option(mock.errorResponse(request)) match {
+                            case Some(error) =>
+                                outStream.writeBytes("HTTP/1.1 " + error.code.key + "\r\n")
+                                for ((key, value) <- error.header) {
+                                    outStream.writeBytes(key + ": " + value + "\r\n")
+                                }
+                                outStream.writeBytes("\r\n")
+
+                                error.loadBody match {
+                                    case Some(content) => outStream.write(content)
+                                    case None =>
+                                }
+                                outStream.flush()
+                            case None =>
+                                this >> s"no global error response found"
+                        }
+                    }
             }
         }
         catch {

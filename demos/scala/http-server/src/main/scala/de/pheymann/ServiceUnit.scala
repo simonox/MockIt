@@ -20,4 +20,8 @@ class ServiceUnit extends HttpServerMockUnit {
         WebappTestService(this)
     }
 
+    override def errorResponse(request: HttpRequest): HttpResponse = {
+        HttpResponse(BadRequest)
+    }
+
 }

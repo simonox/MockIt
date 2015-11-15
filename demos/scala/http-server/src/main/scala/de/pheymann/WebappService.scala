@@ -12,7 +12,8 @@ case class WebappService(
             HttpRequest(Get, "/webapp") +
                 ("username", "pheymann"),
             HttpResponse(OK) ++
-                ("text/html", new File("html/webapp.html"), "UTF-8")
+                ("text/html", new File("html/webapp.html"), "UTF-8"),
+            Option(_ => HttpResponse(BadRequest))
         )
 
 

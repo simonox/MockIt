@@ -13,6 +13,10 @@ import com.github.pheymann.mockit.networkclassloader.ClassConverter
 import com.github.pheymann.mockit.core._
 import com.github.pheymann.mockit.util.testmock.TestHttpClientMockUnit
 
+/**
+ * @author  pheymann
+ * @version 0.1.0
+ */
 class HttpClientMockSpec extends MockItSpec {
 
     import ClassConverter._

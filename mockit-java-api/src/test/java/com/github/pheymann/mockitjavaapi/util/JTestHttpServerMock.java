@@ -17,10 +17,15 @@ public class JTestHttpServerMock extends JHTTPServerMockUnit {
         response.addHeader("user", "test-user");
         response.addBody("text/http", "<strong>hello world</strong>".getBytes("UTF-8"));
 
-        this.add(request, response);
+        this.jadd(request, response);
 
         HttpRequest request2 = new HttpRequest(JHttpMethod.PUT, "/test");
-        this.jadd(request2, (HttpRequest x) -> response);
+        this.jaddWithFunction(request2, (HttpRequest x) -> response);
+    }
+
+    @Override
+    public HttpResponse errorResponse(HttpRequest request) {
+        return  new HttpResponse(JHttpCode.BadRequest);
     }
 
 }

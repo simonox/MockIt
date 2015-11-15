@@ -15,6 +15,29 @@ import com.github.pheymann.mockit.core.core.package$;
  */
 public class ConfigurationFactory {
 
+    /**
+     * Creates a non-specialized configuration.
+     *
+     * @param threadNumber
+     *          number of threads running on the mock-daemon
+     * @param repetitions
+     *          number of mock process repetitions
+     * @param serverPort
+     *          port of the mock-server (if a server is available)
+     * @param targetPort
+     *          port of the target service (server)
+     * @param targetIp
+     *          ip of the target service (server)
+     * @param originIp
+     *          ip of the developers application
+     * @param mockNumber
+     *          number of mock-daemons running the mock unit
+     * @param mockType
+     *          is it a client, server, p2p
+     * @param mockConnection
+     *          is it tcp, udp, or http
+     * @return configuration
+     */
     public static Configuration create(
         final int                       threadNumber,
         final int                       repetitions,
@@ -39,6 +62,17 @@ public class ConfigurationFactory {
         );
     }
 
+    /**
+     * Creates a server specific configuration.
+     *
+     * @param threadNumber
+     *          number of threads running on the mock-daemon
+     * @param serverPort
+     *          port of the mock-server (if a server is available)
+     * @param mockConnection
+     *          is it tcp, udp, or http
+     * @return server-configuration
+     */
     public static Configuration createServer(
         final int               threadNumber,
         final int               serverPort,
@@ -57,6 +91,23 @@ public class ConfigurationFactory {
         );
     }
 
+    /**
+     * Creates a client specific configuration.
+     *
+     * @param threadNumber
+     *          number of threads running on the mock-daemon
+     * @param repetitions
+     *          number of mock process repetitions
+     * @param targetPort
+     *          port of the target service (server)
+     * @param targetIp
+     *          ip of the target service (server)
+     * @param mockNumber
+     *          number of mock-daemons running the mock unit
+     * @param mockConnection
+     *          is it tcp, udp, or http
+     * @return client-configuration
+     */
     public static Configuration createClient(
         final int                       threadNumber,
         final int                       repetitions,
@@ -78,6 +129,23 @@ public class ConfigurationFactory {
         );
     }
 
+    /**
+     * Creates udp-p2p specific configuration.
+     *
+     * @param threadNumber
+     *          number of threads running on the mock-daemon
+     * @param repetitions
+     *          number of mock process repetitions
+     * @param serverPort
+     *          port of the mock-server (if a server is available)
+     * @param targetPort
+     *          port of the target service (server)
+     * @param targetIp
+     *          ip of the target service (server)
+     * @param mockNumber
+     *          number of mock-daemons running the mock unit
+     * @return udp-p2p-configuration
+     */
     public static Configuration createUDPP2P(
         final int       threadNumber,
         final int       repetitions,

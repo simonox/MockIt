@@ -1,0 +1,13 @@
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file> ${log_file_name}.log </file>
+        <append>true</append>
+        <encoder>
+            <pattern>%p \t| %d{yyyy-MM-dd HH:mm:ss.SSS} | [%t] \t| %c | %m %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="warn">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

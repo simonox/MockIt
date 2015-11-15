@@ -22,12 +22,12 @@ val scalaDependencies = Seq (
     "org.scala-lang" % "scala-reflect" % "2.11.7",
     "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.4",
 
-    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.1.0-beta",
-    "com.github.pheymann" % "mockitjavaapi" % "0.1.0-beta"
+    "com.github.pheymann" % s"mockit_$scalaBasicVersion" % "0.2.0-beta",
+    "com.github.pheymann" % "mockitjavaapi" % "0.2.0-beta"
 )
 
 val javaDependencies = Seq (
-    "log4j" % "log4j" % "1.2.17"
+    "ch.qos.logback" % "logback-classic" % "1.1.2"
 )
 
 resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"

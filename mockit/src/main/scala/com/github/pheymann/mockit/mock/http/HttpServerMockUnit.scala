@@ -70,8 +70,8 @@ abstract class HttpServerMockUnit extends MockUnit {
     /**
      * Adds request/response pair to the mock server.
      *
-     * If the received request fits the defined one the server transmits the
-     * stored response to the client. If it doesn't fit the server goes through
+     * If the received request meets the defined one the server transmits the
+     * stored response to the client. If it doesn't meet the server goes through
      * the following stages:
      *   - if an error is defined send the error response
      *   - if an global error response is defined send this
@@ -82,8 +82,7 @@ abstract class HttpServerMockUnit extends MockUnit {
      * @param response
      *              standard response
      * @param error
-     *              is send when the received request doesn't fit the defined one
-     * @return response
+     *              is send when the received request doesn't meet the defined one
      */
     def add(
                 request:    HttpRequest,
@@ -101,11 +100,11 @@ abstract class HttpServerMockUnit extends MockUnit {
     }
 
     /**
-     * Adds request/response pair to the mock server.
+     * Adds request/response-handler pair to the mock server.
      *
-     * If the received request fits the defined one the server transmits the
-     * stored response to the client. If it doesn't fit the server goes through
-     * the following stages:
+     * If the received request meets the defined one the server calls the response
+     * creation function and transmits the retrieved response to the client. If
+     * it doesn't meet the server goes through the following stages:
      *   - if an error is defined send the error response
      *   - if an global error response is defined send this
      *   - nothing is defined send nothing
@@ -115,8 +114,7 @@ abstract class HttpServerMockUnit extends MockUnit {
      * @param handler
      *              function which creates responses depending on the request
      * @param error
-     *              is send when the received request doesn't fit the defined one
-     * @return response
+     *              is send when the received request doesn't meet the defined one
      */
     def addWithFunction(
                             request:    HttpRequest,

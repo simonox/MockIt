@@ -70,7 +70,7 @@ lazy val scalaVersion = "2.11"
 "com.github.pheymann" % s"mockit_$scalaVersion" % "x.y.z"
 ```
 
-Replace the x.y.z with the correct version number you want to use (*current: 0.1.0-beta*).
+Replace the x.y.z with the correct version number you want to use (*current: 0.2.0-beta*).
 
 ## Maven
 
@@ -94,7 +94,7 @@ If you programming in Java you will need the Java API too:
     <version>x.y.z</version>
 </dependency>
 ```
-Replace the x.y.z with the correct version number you want to use (*current: 0.1.0-beta*).
+Replace the x.y.z with the correct version number you want to use (*current: 0.2.0-beta*).
 
 ## Small Example: Hello World
 

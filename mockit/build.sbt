@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
     settings(
         organization := "com.github.pheymann",
         name := "mockit",
-        version := "0.1.0-beta",
+        version := "0.2.0-beta",
         scalaVersion := "2.11.7",
 
         startYear := Some(2015),

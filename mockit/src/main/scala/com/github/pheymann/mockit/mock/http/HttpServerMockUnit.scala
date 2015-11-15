@@ -55,6 +55,16 @@ abstract class HttpServerMockUnit extends MockUnit {
 
     protected val mock = new mutable.HashMap[String, ResourceHandler]
 
+    /**
+     * Global error response if no request/response pair can be found.
+     *
+     * If no global error response is defined the connection to
+     * the client is closed.
+     *
+     * @param request
+     *              without corresponding response
+     * @return response
+     */
     def errorResponse(request: HttpRequest): HttpResponse
 
     /**
@@ -76,9 +86,9 @@ abstract class HttpServerMockUnit extends MockUnit {
      * @return response
      */
     def add(
-                request: HttpRequest,
-                response: HttpResponse,
-                error: Option[HttpRequest => HttpResponse] = None
+                request:    HttpRequest,
+                response:   HttpResponse,
+                error:      Option[HttpRequest => HttpResponse] = None
            ): Unit = {
         mock.get(request.resource) match {
             case Some(resource) => set(request.method, request -> response, error)(resource)
@@ -109,9 +119,9 @@ abstract class HttpServerMockUnit extends MockUnit {
      * @return response
      */
     def addWithFunction(
-                            request: HttpRequest,
-                            handler: HttpRequest => HttpResponse,
-                            error: Option[HttpRequest => HttpResponse] = None
+                            request:    HttpRequest,
+                            handler:    HttpRequest => HttpResponse,
+                            error:      Option[HttpRequest => HttpResponse] = None
                        ): Unit = {
         mock.get(request.resource) match {
             case Some(resource) => setHandler(request.method, request -> handler, error)(resource)

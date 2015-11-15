@@ -25,9 +25,9 @@ import com.github.pheymann.mockit.logging.{NetworkLogger, Logger, LogChannel}
 class HttpMockWorker (
                          val connection:         Socket,
                          val mock:               HttpServerMockUnit
-                     )   extends  Callable[LogChannel]
-                                  with     NetworkLogger
-                                  with     Logger {
+                     )  extends  Callable[LogChannel]
+                        with     NetworkLogger
+                        with     Logger {
 
     import HttpRequest._
 

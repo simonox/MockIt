@@ -1,5 +1,6 @@
 package com.github.pheymann.mockit.core
 
+import com.github.pheymann.mockit.core.EncryptionType.EncryptionType
 import com.github.pheymann.mockit.core.core._
 import com.github.pheymann.mockit.core.BasicMockType.BasicMockType
 import com.github.pheymann.mockit.core.ConnectionType.ConnectionType
@@ -33,6 +34,7 @@ class Configuration (
                         val mockType:       BasicMockType,
                         val mockConnection: ConnectionType,
 
+                        val encryptionType: EncryptionType,
                         val keyStore:       String,
                         val password:       String,
                         val certificate:    String
@@ -53,6 +55,7 @@ class Configuration (
             this.mockNumber == config.mockNumber        &&
             this.mockType == config.mockType            &&
             this.mockConnection == config.mockConnection &&
+            this.encryptionType == config.encryptionType &&
             this.keyStore == config.keyStore            &&
             this.password == config.password            &&
             this.certificate == config.certificate
@@ -86,6 +89,7 @@ case class ServerConfiguration(
                                                         DEFAULT_MOCK_NUM,
                                                         BasicMockType.server,
                                                         mockConnection,
+                                                        EncryptionType.none,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING
@@ -124,6 +128,7 @@ case class ClientConfiguration(
                                                         mockNumber,
                                                         BasicMockType.client,
                                                         mockConnection,
+                                                        EncryptionType.none,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING
@@ -163,6 +168,7 @@ case class UDPP2PConfiguration(
                                                         mockNumber,
                                                         BasicMockType.p2p,
                                                         ConnectionType.udp,
+                                                        EncryptionType.none,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING,
                                                         STUFFING_STRING

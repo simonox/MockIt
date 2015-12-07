@@ -112,8 +112,14 @@ class MockAgent (
                         }
                     case ConnectionType.http =>
                         if (isServer) {
-                            this >> "initialize thread pool[0]: start http mock server"
-                            futures(0) = pool.submit(new HttpMockServer(config, mockClass))
+                            config.encryptionType match {
+                                case EncryptionType.ssl =>
+                                    this >> "initialize thread pool[0]: start https mock server"
+                                    futures(0) = pool.submit(new HttpMockServer(config, mockClass))
+                                case EncryptionType.none =>
+                                    this >> "initialize thread pool[0]: start http mock server"
+                                    futures(0) = pool.submit(new HttpMockServer(config, mockClass))
+                            }
                         }
                         else {
                             this >> s"initialize thread pool[${config.threadNumber}]: start all http mock clients"

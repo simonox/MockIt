@@ -51,14 +51,30 @@ package object core {
 
 //* types
 //* enums
+
+/**
+ * Defines the mock types provided by MockIt.
+ */
 object BasicMockType extends Enumeration {
     type BasicMockType = Value
 
     val client, server, agent, p2p, none = Value
 }
 
+/**
+ * Defines the connection types provided by MockIt.
+ */
 object ConnectionType extends Enumeration {
     type ConnectionType = Value
 
     val udp, tcp, http, none = Value
+}
+
+/**
+ * Defined the encryption types provided by MockIt.
+ */
+object EncryptionType extends Enumeration {
+    type EncryptionType = Value
+
+    val ssl, none = Value
 }

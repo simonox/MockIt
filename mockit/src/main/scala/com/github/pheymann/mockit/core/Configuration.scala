@@ -31,7 +31,11 @@ class Configuration (
 
                         val mockNumber:     Int,
                         val mockType:       BasicMockType,
-                        val mockConnection: ConnectionType
+                        val mockConnection: ConnectionType,
+
+                        val keyStore:       String,
+                        val password:       String,
+                        val certificate:    String
                     ) extends Serializable {
 
     override def equals(obj: Any): Boolean = {
@@ -48,7 +52,10 @@ class Configuration (
             this.originIp == config.originIp            &&
             this.mockNumber == config.mockNumber        &&
             this.mockType == config.mockType            &&
-            this.mockConnection == config.mockConnection
+            this.mockConnection == config.mockConnection &&
+            this.keyStore == config.keyStore            &&
+            this.password == config.password            &&
+            this.certificate == config.certificate
         }
     }
 
@@ -78,7 +85,10 @@ case class ServerConfiguration(
                                                         DEFAULT_IP,
                                                         DEFAULT_MOCK_NUM,
                                                         BasicMockType.server,
-                                                        mockConnection
+                                                        mockConnection,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING
                                                       )
 
 /**
@@ -113,7 +123,10 @@ case class ClientConfiguration(
                                                         DEFAULT_IP,
                                                         mockNumber,
                                                         BasicMockType.client,
-                                                        mockConnection
+                                                        mockConnection,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING
                                                      )
 
 /**
@@ -149,5 +162,8 @@ case class UDPP2PConfiguration(
                                                         DEFAULT_IP,
                                                         mockNumber,
                                                         BasicMockType.p2p,
-                                                        ConnectionType.udp
+                                                        ConnectionType.udp,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING,
+                                                        STUFFING_STRING
                                                        )
